@@ -1,4 +1,4 @@
-public class ShippableProduct extends Product implements ShippingInfo  {
+public class ShippableProduct extends Product implements Shippable  {
     private double weight;
 
     public ShippableProduct(String name, int quantity, double price, double weight) {

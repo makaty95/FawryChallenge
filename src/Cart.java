@@ -27,6 +27,7 @@ public class Cart {
         return false;
     }
 
+    // this assumes 20 for each 1 quantity of a shippable product
     public double getShippingCosts() {
         double total = 0;
         for(Map.Entry<String, Integer> e: this.cartStorage.entrySet()) {
@@ -64,15 +65,6 @@ public class Cart {
 
 
 
-
-
-
-    // this is just a weight for testing
-    private double getTotalWeight(String name, double quantity) {
-        Product product = Products.getProduct(name);
-        return quantity * 5;
-    }
-
     public double getPricesSum() {
         double ret = 0;
         for(String name : this.cartStorage.keySet()) {
@@ -81,6 +73,31 @@ public class Cart {
         }
 
         return ret;
+    }
+
+    public void showContents() {
+
+        System.out.println("\nCart Contents:");
+        for(Map.Entry<String, Integer> p : cartStorage.entrySet()) {
+            System.out.printf("%dx %s\n", p.getValue(), p.getKey());
+        }
+        System.out.println("------------>");
+    }
+
+    public int removeProductQuantity(String name, int q) {
+        if(!this.cartStorage.containsKey(name)) return -1;
+
+        // if the current quantity > q then decrease it by q; else remove it from the container
+        if(cartStorage.get(name) <= q) { // remove all the quantity
+            int toRemove = cartStorage.get(name);
+            cartStorage.remove(name);
+            return toRemove;
+        }
+
+        // remove some of the quantity.
+        this.cartStorage.put(name, cartStorage.get(name) - q);
+        return q;
+
     }
 
 }

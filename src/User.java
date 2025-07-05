@@ -55,19 +55,24 @@ public class User {
 
     // returns a status which indicates the result of the operation
     public Flag addToCart(String productName, int quantity) {
-        if(cart.getAvailableQuantity(productName) < quantity) {
-            return Flag.NOT_ENOUGH_QUANTITY;
-        }
 
-        // add the product to the current cart
+        // Assuming the product is in the Products storage. to be bought
+
+        // add the product to the cart
         if(cart.cartStorage.containsKey(productName)) {
             Integer currentQuantity = cart.cartStorage.get(productName);
             Integer newQuantity = currentQuantity + quantity;
+
+            // if no enough available of that product.
+            Product product = Products.getProduct(productName);
+            if(product.getQuantity() < newQuantity) return Flag.NOT_ENOUGH_QUANTITY;
 
             cart.cartStorage.put(productName, newQuantity);
         } else {
             cart.cartStorage.put(productName, quantity);
         }
+
+        //System.out.println(cart.cartStorage.get(productName));
 
 
         return Flag.ADDED_TO_CART;
