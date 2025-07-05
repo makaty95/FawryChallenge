@@ -17,6 +17,7 @@ public class Main {
         Product gloves = new ExpirableProduct("cheese", 2, 20, LocalDate.of(2020, 3, 12));
         Product helmet = new ShippableProduct("helmet", 4, 60, 100);
         Products.addAvailable(chair);
+        Products.addAvailable(shoes);
         Products.addAvailable(gloves);
         Products.addAvailable(helmet);
 
@@ -34,6 +35,7 @@ public class Main {
                 Products.showProducts();
                 System.out.println("-> type 'check' to check out");
                 System.out.println("-> type 'cart'  to check/edit the cart contents");
+                System.out.println("-> type 'quit'  to quit");
                 System.out.print("Enter product name >> ");
                 choice = in.nextLine();
             }while(choice.isEmpty() || choice.isBlank());
@@ -80,7 +82,8 @@ public class Main {
                 else System.out.println("No enough quantity");
 
 
-            } else {
+            }else if(choice.equals("quit")) break;
+            else {
                 System.out.println("Invalid choice.\n\n");
             }
 
